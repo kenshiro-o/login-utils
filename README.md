@@ -78,6 +78,7 @@ Moreover, the encryption of the password is performed using bcrypt.
 
 ## Additional features
   - Retrieving user by id
+  - customizing bcrypt encrypter (e.g. configuring the number of rounds)
   - Incorporate Facebook/Twitter ids
 
 ## Licence
