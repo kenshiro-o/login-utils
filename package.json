@@ -1,8 +1,14 @@
 {
   "name": "login-utils",
   "description": "Boiler plate code to handle login/registration of users",
-  "author": "kenshiro<kenshiro@kenshiro.me>",
-  "version": "0.0.1",
+  "author": "kenshiro-o<kenshiro@kenshiro.me>",
+  "keywords": ["login", "boilerplate", "authentication", "bcrypt"],
+  "version": "0.0.2",
+  "main": "lib/loginChecker",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kenshiro-o/login-utils.git"
+  },
   "dependencies": {
     "mongoose": "3.5.4",
     "bcrypt": "0.7.3"
