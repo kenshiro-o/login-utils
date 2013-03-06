@@ -5,7 +5,7 @@ Moreover, the encryption of the password is performed using bcrypt.
 
 ## Installation
 
-  $ npm install login-utils
+    $ npm install login-utils
 
 ## Usage
 
