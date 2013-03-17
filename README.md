@@ -51,7 +51,7 @@ Moreover, the encryption of the password is performed using bcrypt.
 
 ```
 
-### Creating user
+### Creating a user
 
 ```js
   var loginChecker = require("loginChecker");
@@ -70,16 +70,57 @@ Moreover, the encryption of the password is performed using bcrypt.
         console.log("An error occurred creating user: %s", err);
       }else{
         console.log("Successfully created user: [id=%s, first-name=%s, last-name=%s," +
-                                "email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.email,
-                                user.password, user.salt);
+                    "email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.email,
+                    user.password, user.salt);
       }
     });
 ```
 
+### Creating a social media user
+Note that this will also create a user, if not user with a matching email address is found.
+
+```js
+    var loginChecker = require("loginChecker");
+    var firstName = "kenshiro";
+    var lastName = "hackuto";
+    var password = "Hackuto-Shinken is invincible";
+    var email = "kenshiro@hackuto-shinken-mail.com";
+    var providerName = "Facebook";
+    var providerUserId = "1234Fbk07";
+    var displayName = "kenshiro-o";
+
+    var socialMediaUserData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: "email,
+      providerName: providerName,
+      providerUserId: providerUserId,
+      displayName: displayName;
+    };
+
+    loginChecker.createSocialMediaUser(socialMediaUserData, function(err, socialMediaUser){
+      if(err){
+          console.log("An error occurred when trying to create social media user [error=%s]", err);
+      }else{
+        var user = socialMediaUser.user;
+        console.log("Successfully created a social media user [social-media-user-id=%s, provider-name=%s, provider-user-id=%s, display-name=%s]",
+                     socialMediaUser._id, socialMediaUser.providerName, socialMediaUser.providerUserId, socialMediaUser.displayName);
+
+        console.log("User associated with social media user is the following: [user-id=%s, first-name=%s, last-name=%s," +
+                    "email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.email,
+                    user.password, user.salt);
+
+      }
+    });
+
+```
+
+
+
+
 ## Additional features
   - Retrieving user by id
   - customizing bcrypt encrypter (e.g. configuring the number of rounds)
-  - Incorporate Facebook/Twitter ids
 
 ## Licence
 
