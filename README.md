@@ -92,7 +92,7 @@ Note that this will also create a user, if not user with a matching email addres
     var socialMediaUserData = {
       firstName: firstName,
       lastName: lastName,
-      email: "email,
+      email: email,
       providerName: providerName,
       providerUserId: providerUserId,
       displayName: displayName;
