@@ -158,6 +158,49 @@ Note that this will also create a user, if not user with a matching email addres
 
 ```
 
+### Create a password reset token
+
+```js
+   var loginUtils = require("login-utils");
+   var email = "kenshiro@hackuto-shinken-mail.com";
+   //Token expires in 5 hours
+   var expiryInMillis = 1000 * 60 * 60 * 5;
+   loginUtils.setPasswordResetTokenValidityInMillis(expiryInMillis);
+
+   loginUtils.createPasswordResetToken(email, function(err, token){
+     if(err){
+      console.log("An error occurred when trying to create password reset token for user: %s", err);
+     } else{
+        console.log("Successfully created a password reset token [user-id=%s, token-string=%s, token-expiry=%s]",
+                    token.user, token.token, token.expiry);
+     }
+   });
+
+```
+
+### Find a password reset token by token string
+
+```js
+   var loginUtils = require("login-utils");
+   var tokenString = "GIBBERISH_)821832jkhhfdshdfhdls";
+
+
+   loginUtils.createPasswordResetToken(tokenString, function(err, token){
+     if(err){
+      console.log("An error occurred when trying to find password reset token by token string: %s", err);
+     }else if(!token){
+      console.log("No such password reset token exists [token-string=%s]", tokenString);
+     }else{
+        console.log("Found password reset token [user-id=%s, token-string=%s, token-expiry=%s]",
+                    token.user, token.token, token.expiry);
+     }
+   });
+
+```
+
+
+
+
 
 
 

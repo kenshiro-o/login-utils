@@ -17,27 +17,21 @@ var email = "kenshiro@hackuto-shinken-mail.com";
 var providerName = "Facebook";
 var providerUserId = "FacebookUserId-Kenshiro";
 
+var tokenString = "";
+
 vows.describe("User checks").addBatch({
-  "Delete Users": {
-    topic: function () {
-      User.remove({}, this.callback);
+  "Delete all collections":{
+    topic: function(){
+      for (var i in mongoose.connection.collections) {
+        mongoose.connection.collections[i].remove(function() {});
+      }
+      this.callback(null);
     },
 
-    "User is deleted": function (status) {
-      //Always return true
-      assert.ok(true);
+    "Collections are deleted": function(err){
+      expect(err).to.be(undefined);
     }
-  },
 
-  "Delete Social Media Users": {
-    topic: function () {
-      SocialMediaUser.remove({}, this.callback);
-    },
-
-    "Social Media User is deleted": function (status) {
-      //Always return true
-      assert.ok(true);
-    }
   }
 
 
@@ -247,6 +241,54 @@ vows.describe("User checks").addBatch({
         expect(err).to.be(null);
         expect(socialMediaUser).to.be(null);
 
+      }
+    },
+
+
+    "When creating a password reset token for a user that does not exist":{
+      topic: function(){
+        loginChecker.createPasswordResetToken("NonExistantMail", this.callback);
+      },
+
+      "Nothing is returned":function(err, token){
+        expect(err).to.be(null);
+        expect(token).to.be(null);
+      }
+    },
+
+    "When creating a password reset token for a user that does exist":{
+      topic: function(){
+        loginChecker.createPasswordResetToken(email, this.callback);
+      },
+
+      "A valid token is returned":function(err, token){
+        expect(err).to.be(null);
+        expect(token).to.be.ok();
+        tokenString = token.token;
+      }
+    }
+
+  }).addBatch({
+
+    "When searching for password reset tokens for a user that does exist":{
+      topic: function(){
+        loginChecker.findPasswordResetTokensForUser(email, this.callback);
+      },
+
+      "One token is returned":function(err, tokens){
+        expect(err).to.be(null);
+        expect(tokens.length).to.be(1);
+      }
+    },
+
+    "When searching for a password reset token by token":{
+      topic: function(){
+        loginChecker.findPasswordResetTokenByTokenString(tokenString, this.callback);
+      },
+
+      "The expected token is returned ":function(err, token){
+        expect(err).to.be(null);
+        expect(token).to.be.ok();
       }
     }
   }).addBatch({

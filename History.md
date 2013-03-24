@@ -1,3 +1,10 @@
+0.0.6 / 2013-03-24
+====================
+* Added password reset token:
+  - can create one from a given existing user's email address
+  - can set the expiry of the token (in milliseconds)
+  - can find one by token string
+
 0.0.5 / 2013-03-24
 ====================
 * Enable searching of users by first and last name
