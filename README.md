@@ -17,7 +17,7 @@ Moreover, the encryption of the password is performed using bcrypt.
   var loginUtils = require("login-utils");
   var email = "kenshiro@some-email.com";
 
-  loginChecker.findUserByEmail(email, function(err, user){
+  loginUtils.findUserByEmail(email, function(err, user){
     if(err){
       console.log("An error occurred while trying to find user by email: %s", err);
     }else{
@@ -35,7 +35,7 @@ Moreover, the encryption of the password is performed using bcrypt.
   var loginUtils = require("login-utils");
   var userName = "kenshiro.hackuto";
 
-  loginChecker.findUserByUserName(userName, function(err, user){
+  loginUtils.findUserByUserName(userName, function(err, user){
     if(err){
       console.log("An error occurred while trying to find user by user name: %s", err);
     }else{
@@ -55,7 +55,7 @@ Moreover, the encryption of the password is performed using bcrypt.
   var firstName = "kenshiro";
   var lastName = "hackuto";
 
-  loginChecker.findUsersByFirstAndLastName(firstName, lastName, function(err, user){
+  loginUtils.findUsersByFirstAndLastName(firstName, lastName, function(err, user){
     if(err){
       console.log("An error occurred while trying to find user by first and last name: %s", err);
     }else{
@@ -77,7 +77,7 @@ Moreover, the encryption of the password is performed using bcrypt.
    var password = "Hackuto-Shinken is invincible";
    var email = "kenshiro@hackuto-shinken-mail.com";
 
-   loginChecker.loginCheck(email, password, function(err, response){
+   loginUtils.loginCheck(email, password, function(err, response){
      if(err){
       console.log("An error occurred when authenticating user: %s", err);
      }else if(!response.user){
@@ -101,7 +101,7 @@ Moreover, the encryption of the password is performed using bcrypt.
   var password = "Hackuto-Shinken is invincible";
   var email = "kenshiro@hackuto-shinken-mail.com";
 
-  loginChecker.createNewUser({
+  loginUtils.createNewUser({
       firstName: firstName,
       lastName: lastName,
       userName: firstName + "." + lastName,
@@ -141,7 +141,7 @@ Note that this will also create a user, if not user with a matching email addres
       displayName: displayName;
     };
 
-    loginChecker.createSocialMediaUser(socialMediaUserData, function(err, socialMediaUser){
+    loginUtils.createSocialMediaUser(socialMediaUserData, function(err, socialMediaUser){
       if(err){
           console.log("An error occurred when trying to create social media user [error=%s]", err);
       }else{
