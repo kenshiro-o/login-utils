@@ -184,8 +184,7 @@ Note that this will also create a user, if not user with a matching email addres
    var loginUtils = require("login-utils");
    var tokenString = "GIBBERISH_)821832jkhhfdshdfhdls";
 
-
-   loginUtils.createPasswordResetToken(tokenString, function(err, token){
+   loginUtils.findPasswordResetTokenByTokenString(tokenString, function(err, token){
      if(err){
       console.log("An error occurred when trying to find password reset token by token string: %s", err);
      }else if(!token){
