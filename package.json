@@ -3,7 +3,7 @@
   "description": "Boiler plate code to handle login/registration of users",
   "author": "kenshiro-o<kenshiro@kenshiro.me>",
   "keywords": ["login", "boilerplate", "authentication", "bcrypt"],
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "lib/loginChecker",
   "repository": {
     "type": "git",

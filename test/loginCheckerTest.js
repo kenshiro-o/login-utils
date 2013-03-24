@@ -133,6 +133,37 @@ vows.describe("User checks").addBatch({
       }
     },
 
+    "When searching for users that does not exist by first and last name": {
+      topic: function () {
+        loginChecker.findUsersByFirstAndLastName(firstName + "_O", lastName, this.callback);
+      },
+
+      "The expected collection of user is returned": function (err, users) {
+        assert.ok(!err);
+        assert.deepEqual(users.length, 0);
+      }
+    },
+
+
+    "When searching for users that does exist by first and last name": {
+      topic: function () {
+        loginChecker.findUsersByFirstAndLastName(firstName, lastName, this.callback);
+      },
+
+      "The expected collection of user is returned": function (err, users) {
+        assert.ok(!err);
+        assert.deepEqual(users.length, 1);
+        var user = users[0];
+        assert.ok(user);
+        assert.deepEqual(user.email, email);
+        assert.deepEqual(user.firstName, firstName);
+        assert.deepEqual(user.lastName, lastName);
+        assert.deepEqual(user.userName, userName);
+      }
+    },
+
+
+
 
     "When trying to login with an incorrect password": {
       topic: function () {

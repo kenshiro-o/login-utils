@@ -14,38 +14,79 @@ Moreover, the encryption of the password is performed using bcrypt.
 ### Finding a user by his email address:
 
 ```js
-  var loginChecker = require("loginChecker");
+  var loginUtils = require("login-utils");
   var email = "kenshiro@some-email.com";
 
   loginChecker.findUserByEmail(email, function(err, user){
     if(err){
       console.log("An error occurred while trying to find user by email: %s", err);
     }else{
-      console.log("User has been retrieved: [id=%s, first-name=%s, last-name=%s," +
-                  "email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.email,
-                  user.password, user.salt);
+      console.log("User has been retrieved: [id=%s, first-name=%s, last-name=%s, user-name=%s" +
+                  ", email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName,
+                  user.userName, user.email, user.password, user.salt);
     }
   });
 
 ```
 
+### Finding a user by his/her user name:
+
+```js
+  var loginUtils = require("login-utils");
+  var userName = "kenshiro.hackuto";
+
+  loginChecker.findUserByUserName(userName, function(err, user){
+    if(err){
+      console.log("An error occurred while trying to find user by user name: %s", err);
+    }else{
+      console.log("User has been retrieved: [id=%s, first-name=%s, last-name=%s, user-name=%s" +
+                  ", email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName,
+                  user.userName, user.email, user.password, user.salt);
+    }
+  });
+
+```
+
+
+### Finding a user by his/her first and last name:
+
+```js
+  var loginUtils = require("login-utils");
+  var firstName = "kenshiro";
+  var lastName = "hackuto";
+
+  loginChecker.findUsersByFirstAndLastName(firstName, lastName, function(err, user){
+    if(err){
+      console.log("An error occurred while trying to find user by first and last name: %s", err);
+    }else{
+      console.log("User has been retrieved: [id=%s, first-name=%s, last-name=%s, user-name=%s" +
+                  ", email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName,
+                  user.userName, user.email, user.password, user.salt);
+    }
+  });
+
+```
+
+
+
+
 ### Checking user login details against what is stored
 
 ```js
-   var loginChecker = require("loginChecker");
+   var loginUtils = require("login-utils");
    var password = "Hackuto-Shinken is invincible";
    var email = "kenshiro@hackuto-shinken-mail.com";
 
-   loginChecker.loginCheck(email, password, function(err, response{
+   loginChecker.loginCheck(email, password, function(err, response){
      if(err){
       console.log("An error occurred when authenticating user: %s", err);
      }else if(!response.user){
       console.log(response.message);
      }else{
       var user = response.user;
-      console.log("Successfully authenticated user: [id=%s, first-name=%s, last-name=%s," +
-                        "email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.email,
-                        user.password, user.salt);
+      console.log("Successfully authenticated user: [id=%s, first-name=%s, last-name=%s, user-name=%s" +
+                        ", email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.userName,
+                        user.email, user.password, user.salt);
      }
    });
 
@@ -54,7 +95,7 @@ Moreover, the encryption of the password is performed using bcrypt.
 ### Creating a user
 
 ```js
-  var loginChecker = require("loginChecker");
+  var loginUtils = require("login-utils");
   var firstName = "kenshiro";
   var lastName = "hackuto";
   var password = "Hackuto-Shinken is invincible";
@@ -63,15 +104,16 @@ Moreover, the encryption of the password is performed using bcrypt.
   loginChecker.createNewUser({
       firstName: firstName,
       lastName: lastName,
+      userName: firstName + "." + lastName,
       password: password,
       email: email
     }, function(err, user){
       if(err){
         console.log("An error occurred creating user: %s", err);
       }else{
-        console.log("Successfully created user: [id=%s, first-name=%s, last-name=%s," +
-                    "email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.email,
-                    user.password, user.salt);
+        console.log("Successfully created user: [id=%s, first-name=%s, last-name=%s, user-name=%s" +
+                    ", email=%s, hashed-password=%s, bcrypt-salt=%s]", user._id, user.firstName, user.lastName, user.userName
+                    user.email, user.password, user.salt);
       }
     });
 ```
@@ -80,7 +122,7 @@ Moreover, the encryption of the password is performed using bcrypt.
 Note that this will also create a user, if not user with a matching email address is found.
 
 ```js
-    var loginChecker = require("loginChecker");
+    var loginUtils = require("login-utils");
     var firstName = "kenshiro";
     var lastName = "hackuto";
     var password = "Hackuto-Shinken is invincible";
@@ -92,6 +134,7 @@ Note that this will also create a user, if not user with a matching email addres
     var socialMediaUserData = {
       firstName: firstName,
       lastName: lastName,
+      userName: kenshiro-o,
       email: email,
       providerName: providerName,
       providerUserId: providerUserId,

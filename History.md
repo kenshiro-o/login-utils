@@ -1,3 +1,8 @@
+0.0.5 / 2013-03-24
+====================
+* Enable searching of users by first and last name
+* Improved documentation
+
 0.0.4 / 2013-03-24
 ====================
 * Added userName to User model object. It is a unique field!
