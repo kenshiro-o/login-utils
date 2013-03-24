@@ -1,3 +1,8 @@
+0.0.4 / 2013-03-24
+====================
+* Added userName to User model object. It is a unique field!
+* Enabled searching by userName
+
 0.0.3 / 2013-03-17
 ====================
 * Added SocialMediaUser integration:

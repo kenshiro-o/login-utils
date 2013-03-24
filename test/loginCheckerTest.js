@@ -7,9 +7,10 @@ var vows = require("vows"),
   loginChecker = require("./../lib/loginChecker"),
   expect = require("expect.js");
 
-mongoose.connect("mongodb://127.0.0.1/loginCheckDB-test");
+mongoose.connect("mongodb://127.0.0.1/login-utils-test");
 var firstName = "kenshiro";
 var lastName = "hackuto";
+var userName = "kenshiro.hokuto";
 var password = "Hackuto-Shinken is invincible";
 var email = "kenshiro@hackuto-shinken-mail.com";
 
@@ -46,6 +47,7 @@ vows.describe("User checks").addBatch({
         loginChecker.createNewUser({
           firstName: firstName,
           lastName: lastName,
+          userName: userName,
           password: password,
           email: email
         }, this.callback);
@@ -56,6 +58,7 @@ vows.describe("User checks").addBatch({
         assert.ok(user);
         assert.deepEqual(user.firstName, firstName);
         assert.deepEqual(user.lastName, lastName);
+        assert.deepEqual(user.userName, userName);
         assert.deepEqual(user.email, email);
         assert.ok(user.password);
         assert.ok(user.salt);
@@ -67,6 +70,7 @@ vows.describe("User checks").addBatch({
         loginChecker.createNewUser({
           firstName: firstName,
           lastName: lastName,
+          userName: userName,
           password: password,
           email: email
         }, this.callback);
@@ -99,8 +103,36 @@ vows.describe("User checks").addBatch({
         assert.deepEqual(user.email, email);
         assert.deepEqual(user.firstName, firstName);
         assert.deepEqual(user.lastName, lastName);
+        assert.deepEqual(user.userName, userName);
       }
     },
+
+    "When searching for a user name that does not exist": {
+      topic: function () {
+        loginChecker.findUserByUserName("kenshiro.notExists", this.callback);
+      },
+
+      "No user is returned": function (err, response) {
+        assert.ok(!err);
+        assert.ok(!response);
+      }
+    },
+
+    "When searching for a user name that does exist": {
+      topic: function () {
+        loginChecker.findUserByUserName(userName, this.callback);
+      },
+
+      "The expected user is returned": function (err, user) {
+        assert.ok(!err);
+        assert.ok(user);
+        assert.deepEqual(user.email, email);
+        assert.deepEqual(user.firstName, firstName);
+        assert.deepEqual(user.lastName, lastName);
+        assert.deepEqual(user.userName, userName);
+      }
+    },
+
 
     "When trying to login with an incorrect password": {
       topic: function () {
@@ -133,6 +165,7 @@ vows.describe("User checks").addBatch({
         var socialMediaUserData = {
           firstName: firstName,
           lastName: lastName,
+          userName: userName,
           email: email,
           providerName: providerName,
           providerUserId: providerUserId,
@@ -155,6 +188,7 @@ vows.describe("User checks").addBatch({
         var socialMediaUserData = {
           firstName: firstName,
           lastName: lastName,
+          userName: userName + "2",
           email: "kenshiro-test2@mail.com",
           providerName: providerName,
           providerUserId: "12345",
