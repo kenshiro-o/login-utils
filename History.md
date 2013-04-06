@@ -1,4 +1,4 @@
-0.0.7 / 2013-03-24
+0.0.7 / 2013-04-06
 ====================
 * Enable setting of bcrypt number of rounds
 * Strengthen hash comparison against timing attacks
