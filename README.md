@@ -16,9 +16,9 @@ Moreover, the encryption of the password is performed using bcrypt.
   var loginUtils = require("login-utils");
   loginUtils.setBcryptNumberOfRounds(15);
 
-  //You can the current salt factor via
-  var saltFactor = loginUtils.getBcryptNumberOfRounds();
-  console.log("Current bcrypt number of rounds is %d", saltFactor);
+  //You can get the current number of rounds via
+  var nbOfRounds = loginUtils.getBcryptNumberOfRounds();
+  console.log("Current bcrypt number of rounds is %d", nbOfRounds);
 ```
 
 
