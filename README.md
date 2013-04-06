@@ -11,6 +11,17 @@ Moreover, the encryption of the password is performed using bcrypt.
 
   The api is very straightforward to use.
 
+### Changing bcrypt number of rounds (default is 11):
+```js
+  var loginUtils = require("login-utils");
+  loginUtils.setBcryptNumberOfRounds(15);
+
+  //You can the current salt factor via
+  var saltFactor = loginUtils.getBcryptNumberOfRounds();
+  console.log("Current bcrypt number of rounds is %d", saltFactor);
+```
+
+
 ### Finding a user by his email address:
 
 ```js

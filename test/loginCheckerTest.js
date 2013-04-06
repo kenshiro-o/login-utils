@@ -19,6 +19,8 @@ var providerUserId = "FacebookUserId-Kenshiro";
 
 var tokenString = "";
 
+var defaultBcryptSaltFactor = 11;
+
 vows.describe("User checks").addBatch({
   "Delete all collections":{
     topic: function(){
@@ -289,6 +291,41 @@ vows.describe("User checks").addBatch({
       "The expected token is returned ":function(err, token){
         expect(err).to.be(null);
         expect(token).to.be.ok();
+      }
+    }
+  }).addBatch({
+    "When setting the bcrypt number of roundsr to an incorrect value":{
+      topic:function(){
+        var previousValue = loginChecker.getBcryptNumberOfRounds();
+        loginChecker.setBcryptNumberOfRounds("EL");
+        return previousValue;
+      },
+
+      "The previous value is kept": function(previousValue){
+        expect(previousValue).to.be(defaultBcryptSaltFactor);
+      }
+    },
+
+    "When setting the bcrypt number of rounds to a correct value":{
+       topic:function(){
+         loginChecker.setBcryptNumberOfRounds(100);
+         return loginChecker.getBcryptNumberOfRounds();
+       },
+
+       "The value is updated": function(numberOfRounds){
+         expect(numberOfRounds).to.be(100);
+       }
+     },
+
+    "When setting the bcrypt number of rounds to a correct then incorrect value":{
+      topic:function(){
+        loginChecker.setBcryptNumberOfRounds(100);
+        loginChecker.setBcryptNumberOfRounds("EL");
+        return loginChecker.getBcryptNumberOfRounds();
+      },
+
+      "The previous correct value is kept": function(numberOfRounds){
+        expect(numberOfRounds).to.be(100);
       }
     }
   }).addBatch({

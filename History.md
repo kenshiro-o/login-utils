@@ -1,3 +1,8 @@
+0.0.7 / 2013-03-24
+====================
+* Enable setting of bcrypt number of rounds
+* Strengthen hash comparison against timing attacks
+
 0.0.6 / 2013-03-24
 ====================
 * Added password reset token:
