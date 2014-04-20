@@ -3,14 +3,14 @@
   "description": "Boiler plate code to handle login/registration of users",
   "author": "kenshiro-o<kenshiro@kenshiro.me>",
   "keywords": ["login", "boilerplate", "authentication", "bcrypt"],
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "lib/loginChecker",
   "repository": {
     "type": "git",
     "url": "git@github.com:kenshiro-o/login-utils.git"
   },
   "dependencies": {
-    "mongoose": "3.5.4",
+    "mongoose": "3.x",
     "bcrypt": "0.7.5",
     "moment": "*"
   },
@@ -18,5 +18,5 @@
     "vows": "*",
     "expect.js": "*"
   },
-  "engine": "node >= 0.8.x"
+  "engine": "node >= 0.10.x"
 }
